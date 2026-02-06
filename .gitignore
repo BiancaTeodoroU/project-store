@@ -1,0 +1,27 @@
+# Variáveis de Ambiente (Segurança)
+.env
+.env.production
+.env.local
+
+# Dependências
+node_modules/
+dist/
+build/
+
+# Drizzle / Migrações (Opcional: você pode subir a pasta drizzle, mas nunca o .env)
+# drizzle/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# IDEs e Editores
+.vscode/
+.idea/
+.DS_Store
+
+# TypeScript
+tsconfig.tsbuildinfo

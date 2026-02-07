@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Utensils, ShoppingBag, ArrowRight, Star, Instagram, Phone } from 'lucide-react';
+import { ForkKnifeIcon, ArrowRightIcon, StarIcon, ShoppingBagIcon, InstagramLogoIcon, PhoneIcon } from "@phosphor-icons/react";
 import Image from 'next/image';
 
 export default function LandingPage() {
@@ -13,7 +13,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
           <div className="flex items-center gap-2.5 text-orange-600 font-extrabold text-2xl tracking-tight">
             <div className="bg-orange-600 p-1.5 rounded-lg text-white">
-              <Utensils size={24} />
+              <ForkKnifeIcon size={24} />
             </div>
             <span>FoodBt</span>
           </div>
@@ -37,11 +37,11 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6 lg:flex lg:items-center">
           <div className="lg:w-1/2 z-10 text-center lg:text-left">
             <div className="inline-flex items-center gap-2 bg-orange-50 text-orange-700 px-4 py-1.5 rounded-full text-sm font-bold mb-6">
-              <Star size={16} fill="currentColor" />
+              <StarIcon size={16} fill="currentColor" />
               <span>O delivery mais rápido da região</span>
             </div>
             <h1 className="text-5xl lg:text-7xl font-black text-zinc-900 leading-[1.1] tracking-tight">
-              A fome não espera. <br /> 
+              A fome não espera. <br />
               <span className="text-transparent bg-clip-text bg-gradient-to from-orange-600 to-amber-500">O FoodBt entrega.</span>
             </h1>
             <p className="mt-8 text-xl text-zinc-500 max-w-xl leading-relaxed">
@@ -49,7 +49,7 @@ export default function LandingPage() {
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Link href="/auth" className="group bg-orange-600 text-white px-8 py-5 rounded-2xl font-bold text-lg shadow-2xl shadow-orange-200 flex items-center justify-center gap-3 hover:bg-orange-700 transition-all active:scale-95">
-                Fazer meu pedido <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                Fazer meu pedido <ArrowRightIcon className="group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link href="/auth" className="bg-white text-zinc-900 border border-zinc-200 px-8 py-5 rounded-2xl font-bold text-lg flex items-center justify-center gap-2 hover:bg-zinc-50 transition-all shadow-sm">
                 Cadastrar Restaurante
@@ -74,7 +74,7 @@ export default function LandingPage() {
       </section>
 
       {/* Social Proof / Stats */}
-      <section className="py-12 border-y border-zinc-100 bg-zinc-50/50">
+      <section className="py-12 border-y border-zinc-100 bg-zinc-100/50">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
           {[
             { label: 'Pedidos Realizados', value: '50k+' },
@@ -94,7 +94,7 @@ export default function LandingPage() {
       <section className="py-24 px-6">
         <div className="max-w-5xl mx-auto bg-zinc-900 rounded-[3rem] p-12 lg:p-20 text-center relative overflow-hidden">
           <div className="absolute top-0 right-0 p-8 text-white/5">
-            <ShoppingBag size={200} />
+            <ShoppingBagIcon size={200} />
           </div>
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-8">Pronto para começar?</h2>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -150,7 +150,7 @@ export default function LandingPage() {
                 className="p-2"
                 aria-label="GitHub"
               >
-                <Instagram size={32}></Instagram>
+                <InstagramLogoIcon size={32} color='#ffff'/>
               </a>
               <a
                 href=""
@@ -159,7 +159,7 @@ export default function LandingPage() {
                 className="p-2"
                 aria-label="LinkedIn"
               >
-                <Phone size={32}></Phone>
+                <PhoneIcon size={32} color='#ffff'/>
               </a>
             </div>
             <div className="text-white font-bold text-sm">
@@ -174,7 +174,7 @@ export default function LandingPage() {
         {/* Copyright */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-white text-sm">
-            © {currentYear} Bianca. Todos os direitos reservados.
+            © {currentYear}. Todos os direitos reservados.
           </p>
         </div>
       </div>

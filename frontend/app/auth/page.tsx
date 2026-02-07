@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { api } from '../../src/lib/axios';
 import { useRouter } from 'next/navigation';
-import { UtensilsCrossed, Mail, Lock, User, Store, ArrowRight, Loader2 } from 'lucide-react';
+import { UserIcon, LockIcon, ArrowRightIcon, ForkKnifeIcon, StorefrontIcon, EnvelopeIcon, SpinnerIcon } from '@phosphor-icons/react';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
 
@@ -46,7 +46,6 @@ export default function AuthPage() {
 
   return (
     <main className="flex min-h-screen bg-white font-sans text-zinc-900">
-      {/* Coluna da Imagem - Melhorada para Acessibilidade e Performance */}
       <section className="relative hidden w-1/2 lg:block" aria-hidden="true">
         <Image
           src="/images/cozinha-regional-brasileira.jpg"
@@ -57,12 +56,11 @@ export default function AuthPage() {
         />
       </section>
 
-      {/* Coluna do Formulário */}
       <section className="flex w-full flex-col justify-center px-6 lg:w-1/2 lg:px-20">
         <div className="mx-auto w-full max-w-sm">
           <header className="mb-10 text-center lg:text-left">
             <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-orange-500 text-white shadow-xl shadow-orange-100">
-              <UtensilsCrossed size={32} />
+              <ForkKnifeIcon size={32} />
             </div>
             <h2 className="text-3xl font-bold tracking-tight text-zinc-900">
               {isLogin ? 'Acesse sua conta' : 'Crie seu perfil'}
@@ -82,7 +80,7 @@ export default function AuthPage() {
                   role="radio"
                   className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-semibold rounded-lg cursor-pointer hover:opacity-80 active:scale-95 transition-all ${role === 'CUSTOMER' ? 'bg-white shadow-md text-orange-600' : 'text-zinc-500 hover:text-zinc-800'}`}
                 >
-                  <User size={18} /> Cliente
+                  <UserIcon size={18} /> Cliente
                 </button>
                 <button
                   type="button"
@@ -91,18 +89,17 @@ export default function AuthPage() {
                   role="radio"
                   className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-semibold rounded-lg cursor-pointer transition-all hover:opacity-80 active:scale-95 ${role === 'ADMIN' ? 'bg-white shadow-md text-orange-600' : 'text-zinc-500 hover:text-zinc-800'}`}
                 >
-                  <Store size={18} /> Restaurante
+                  <StorefrontIcon size={18} /> Restaurante
                 </button>
               </div>
             )}
 
-            {/* Inputs com labels para acessibilidade (sr-only) */}
             <div className="space-y-3">
               {!isLogin && (
                 <div>
                   <label htmlFor="name" className="sr-only">Nome Completo</label>
                   <div className="relative">
-                    <User className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={20} />
+                    <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={20} />
                     <input
                       id="name"
                       name="name"
@@ -118,7 +115,7 @@ export default function AuthPage() {
               <div>
                 <label htmlFor="email" className="sr-only">E-mail</label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={20} />
+                  <EnvelopeIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={20} />
                   <input
                     id="email"
                     name="email"
@@ -133,7 +130,7 @@ export default function AuthPage() {
               <div>
                 <label htmlFor="password" className="sr-only">Senha</label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={20} />
+                  <LockIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={20} />
                   <input
                     id="password"
                     name="password"
@@ -152,11 +149,11 @@ export default function AuthPage() {
               className="group relative flex w-full items-center justify-center gap-2 rounded-xl bg-orange-600 py-4 font-bold text-white cursor-pointer transition-all hover:opacity-80 active:scale-95 hover:bg-orange-700 active:scale-[0.99] disabled:opacity-70 shadow-lg shadow-orange-100"
             >
               {loading ? (
-                <Loader2 className="animate-spin" size={20} />
+                <SpinnerIcon className="animate-spin" size={20} />
               ) : (
                 <>
                   {isLogin ? 'Entrar na conta' : 'Finalizar cadastro'}
-                  <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                  <ArrowRightIcon size={20} className="group-hover:translate-x-1 transition-transform" />
                 </>
               )}
             </button>

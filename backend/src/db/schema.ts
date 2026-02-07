@@ -9,17 +9,21 @@ export const paymentStatusEnum = pgEnum('payment_status', [
   'WAITING', 'APPROVED', 'DECLINED'
 ]);
 
+export const userRoleEnum = pgEnum('user_role', ['ADMIN', 'CUSTOMER']);
+
 // Tabelas
 export const users = pgTable('users', {
   id: uuid('id').primaryKey().defaultRandom(),
   name: text('name').notNull(),
   email: text('email').unique().notNull(),
   password: text('password').notNull(),
+  role: userRoleEnum('role').default('CUSTOMER').notNull(),
   createdAt: timestamp('created_at').defaultNow(),
 });
 
 export const restaurants = pgTable('restaurants', {
   id: uuid('id').defaultRandom().primaryKey(),
+  managerId: uuid('manager_id').references(() => users.id),
   name: text('name').notNull(),
   description: text('description'),
   category: text('category').notNull(),

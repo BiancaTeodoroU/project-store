@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsString, MinLength, IsEnum } from 'class-validator';
 
 export class CreateUserDto {
   @IsString({ message: 'O nome deve ser um texto' })
@@ -13,4 +13,8 @@ export class CreateUserDto {
   @MinLength(6, { message: 'A senha deve ter pelo menos 6 caracteres' })
   @IsNotEmpty({ message: 'A senha é obrigatória' })
   password: string;
+
+  @IsEnum(['ADMIN', 'CUSTOMER'], { message: 'O tipo de usuário deve ser ADMIN ou CUSTOMER' })
+  @IsOptional()
+  role?: 'ADMIN' | 'CUSTOMER';
 }

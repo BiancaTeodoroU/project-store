@@ -1,0 +1,48 @@
+"use client";
+
+import { ArrowRightIcon, StarIcon } from "@phosphor-icons/react";
+import Link from "next/link";
+import Image from 'next/image';
+
+export function Hero(): React.JSX.Element {
+  return(
+    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 lg:flex lg:items-center">
+        <div className="lg:w-1/2 z-10 text-center lg:text-left">
+          <div className="inline-flex items-center gap-2 bg-orange-50 text-orange-700 px-4 py-1.5 rounded-full text-sm font-bold mb-6">
+            <StarIcon size={16} fill="currentColor" />
+            <span>O delivery mais rápido da região</span>
+          </div>
+          <h1 className="text-5xl lg:text-7xl font-black text-zinc-900 leading-[1.1] tracking-tight">
+            A fome não espera. <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to from-orange-600 to-amber-500">O FoodBt entrega.</span>
+          </h1>
+          <p className="mt-8 text-xl text-zinc-500 max-w-xl leading-relaxed">
+            Descubra os sabores da sua cidade com a facilidade que sua rotina exige. De pratos executivos a lanches artesanais.
+          </p>
+          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <Link href="/auth" className="group bg-orange-600 text-white px-8 py-5 rounded-2xl font-bold text-lg shadow-2xl shadow-orange-200 flex items-center justify-center gap-3 hover:bg-orange-700 transition-all active:scale-95">
+              Fazer meu pedido <ArrowRightIcon className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <Link href="/auth" className="bg-white text-zinc-900 border border-zinc-200 px-8 py-5 rounded-2xl font-bold text-lg flex items-center justify-center gap-2 hover:bg-zinc-50 transition-all shadow-sm">
+              Cadastrar Restaurante
+            </Link>
+          </div>
+        </div>
+
+        <div className="hidden lg:block lg:w-1/2 relative">
+          <div className="absolute -z-10 top-0 right-0 w-125 h-125 bg-orange-200/50 rounded-full blur-3xl animate-pulse"></div>
+          <div className="relative w-full h-150">
+            <Image
+              src="/images/paste.png"
+              alt="App Interface"
+              fill
+              className="object-contain drop-shadow-2xl"
+              priority
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -5,6 +5,7 @@ import { api } from '../../src/lib/axios';
 import { useRouter } from 'next/navigation';
 import { UtensilsCrossed, Mail, Lock, User, Store, ArrowRight, Loader2 } from 'lucide-react';
 import Image from 'next/image';
+import Cookies from 'js-cookie';
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -20,11 +21,17 @@ export default function AuthPage() {
     setLoading(true);
     try {
       if (isLogin) {
-        const response = await api.post('/auth/login', { 
-          email: data.email, 
-          password: data.password 
+        const response = await api.post('/auth/login', {
+          email: data.email,
+          password: data.password
         });
-        localStorage.setItem('token', response.data.access_token);
+
+        Cookies.set('token', response.data.access_token, {
+          expires: 7,
+          path: '/',
+          sameSite: 'lax'
+        });
+
         router.push(role === 'ADMIN' ? '/dashboard' : '/home');
       } else {
         await api.post('/users/register', { ...data, role });

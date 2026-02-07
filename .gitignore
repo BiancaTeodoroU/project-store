@@ -8,8 +8,16 @@ node_modules/
 dist/
 build/
 
+# Next.js (Build e Cache)
+.next/
+out/
+
 # Drizzle / Migrações (Opcional: você pode subir a pasta drizzle, mas nunca o .env)
 # drizzle/
+
+dist/
+build/
+drizzle/migrations/
 
 # Logs
 npm-debug.log*

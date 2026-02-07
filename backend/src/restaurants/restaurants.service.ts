@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { DRIZZLE } from './db/drizzle.provider';
+import { DRIZZLE } from '../db/drizzle.provider';
 import { NodePgDatabase } from 'drizzle-orm/node-postgres';
-import * as schema from './db/schema';
+import * as schema from '../db/schema';
 
 @Injectable()
 export class RestaurantsService {

@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { UserIcon, LockIcon, ArrowRightIcon, ForkKnifeIcon, StorefrontIcon, EnvelopeIcon, SpinnerIcon } from '@phosphor-icons/react';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
+import { toast } from 'sonner';
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -17,6 +18,18 @@ export default function AuthPage() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData);
+
+    if (!isLogin && (!data.name || data.name.toString().length < 3)) {
+      return toast.error('Por favor, insira seu nome completo (mín. 3 caracteres).');
+    }
+
+    if (!data.email.toString().includes('@')) {
+      return toast.error('O e-mail informado é inválido.');
+    }
+
+    if (data.password.toString().length < 6) {
+      return toast.error('A senha deve conter pelo menos 6 caracteres.');
+    }
 
     setLoading(true);
     try {
@@ -32,13 +45,15 @@ export default function AuthPage() {
           sameSite: 'lax'
         });
 
+        toast.success(isLogin ? 'Bem-vindo de volta!' : 'Conta criada com sucesso!');
         router.push(role === 'ADMIN' ? '/dashboard' : '/home');
       } else {
         await api.post('/users/register', { ...data, role });
+        toast.success('Conta criada! Você já pode fazer login.');
         setIsLogin(true);
       }
     } catch (error: any) {
-      alert(error.response?.data?.message || 'Erro na autenticação. Verifique os dados.');
+      toast.error(error.response?.data?.message || 'Erro ao processar. Tente novamente.');
     } finally {
       setLoading(false);
     }
@@ -70,7 +85,7 @@ export default function AuthPage() {
             </p>
           </header>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} noValidate className="space-y-4">
             {!isLogin && (
               <div className="flex gap-2 p-1.5 bg-zinc-100 rounded-xl mb-6" role="radiogroup" aria-label="Tipo de conta">
                 <button

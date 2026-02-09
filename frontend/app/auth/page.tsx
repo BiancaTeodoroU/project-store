@@ -39,21 +39,28 @@ export default function AuthPage() {
           password: data.password
         });
 
-        Cookies.set('token', response.data.access_token, {
-          expires: 7,
-          path: '/',
-          sameSite: 'lax'
-        });
+        const tokenValue = response.data.acess_token;
 
-        toast.success(isLogin ? 'Bem-vindo de volta!' : 'Conta criada com sucesso!');
-        router.push(role === 'ADMIN' ? '/dashboard' : '/home');
+        if (tokenValue) {
+          Cookies.set('token', tokenValue, {
+            expires: 7,
+            path: '/',
+            sameSite: 'lax'
+          });
+
+          toast.success('Login realizado com sucesso!');
+          window.location.replace('/home');
+        } else {
+          console.error('Token não encontrado. Chaves recebidas:', Object.keys(response.data));
+          toast.error('Erro na resposta do servidor.');
+        }
       } else {
         await api.post('/users/register', { ...data, role });
         toast.success('Conta criada! Você já pode fazer login.');
         setIsLogin(true);
       }
     } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Erro ao processar. Tente novamente.');
+      toast.error(error.response?.data?.message || 'Erro ao processar.');
     } finally {
       setLoading(false);
     }

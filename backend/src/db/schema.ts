@@ -17,6 +17,7 @@ export const users = pgTable('users', {
   name: text('name').notNull(),
   email: text('email').unique().notNull(),
   password: text('password').notNull(),
+  phone: text('phone'),
   role: userRoleEnum('role').default('CUSTOMER').notNull(),
   createdAt: timestamp('created_at').defaultNow(),
 });
@@ -25,6 +26,7 @@ export const restaurants = pgTable('restaurants', {
   id: uuid('id').defaultRandom().primaryKey(),
   managerId: uuid('manager_id').references(() => users.id),
   name: text('name').notNull(),
+  cnpj: text('cnpj').unique(),
   description: text('description'),
   category: text('category').notNull(),
   deliveryFee: integer('delivery_fee').notNull().default(0), // Preço em centavos

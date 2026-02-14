@@ -5,6 +5,7 @@ import { Navbar } from './components/navbar/navbar';
 import { Hero } from './components/hero/hero';
 import { SocialProof } from './components/social-proof/social-proof';
 import { Footer } from './components/footer/footer';
+import Customers from "./components/customers/customers";
 
 export default function LandingPage() {
   return (
@@ -25,6 +26,7 @@ export default function LandingPage() {
         </div>
       </section>
 
+      <Customers/>
       <Footer/>
     </div>
   );

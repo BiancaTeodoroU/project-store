@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { api } from '../../src/lib/axios';
 import { useRouter } from 'next/navigation';
-import { UserIcon, LockIcon, ArrowRightIcon, ForkKnifeIcon, StorefrontIcon, EnvelopeIcon, SpinnerIcon } from '@phosphor-icons/react';
+import { UserIcon, LockIcon, ArrowRightIcon, ForkKnifeIcon, StorefrontIcon, EnvelopeIcon, SpinnerIcon, CaretDown, CaretDownIcon, PlusIcon } from '@phosphor-icons/react';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
 import { toast } from 'sonner';
@@ -12,7 +12,11 @@ export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [role, setRole] = useState<'CUSTOMER' | 'ADMIN'>('CUSTOMER');
   const [loading, setLoading] = useState(false);
+  const [isNewCategory, setIsNewCategory] = useState(false);
+  const categories = ['Italiana', 'Japonesa', 'Brasileira', 'Lanches', 'Pizzaria', 'Doces & Bolos'];
   const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -119,68 +123,88 @@ export default function AuthPage() {
             <div className="space-y-3">
               {!isLogin && (
                 <div>
-                  <label htmlFor="name" className="sr-only">Nome Completo</label>
+                  <label htmlFor="name" className="sr-only">Nome ou Razão Social</label>
                   <div className="relative">
                     <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={20} />
                     <input
                       id="name"
                       name="name"
                       type="text"
-                      required
-                      placeholder="Nome completo"
                       className="w-full rounded-xl border border-zinc-200 py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-black"
+                      placeholder={role === 'ADMIN' ? "Razão Social do Restaurante" : "Seu nome completo"}
                     />
                   </div>
                 </div>
               )}
 
+              {/* CAMPOS EXCLUSIVOS PARA RESTAURANTE */}
+              {!isLogin && role === 'ADMIN' && (
+                <>
+                  <div className="relative">
+                    <StorefrontIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={20} />
+                    <input
+                      name="cnpj"
+                      placeholder="CNPJ (00.000.000/0000-00)"
+                      className="w-full rounded-xl border border-zinc-200 py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-orange-500/20 text-black"
+                    />
+                  </div>
+                  <div className="relative space-y-2">
+                    <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider ml-1">Especialidade</label>
+                    <div className="relative">
+                      <ForkKnifeIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 z-20" size={20} />
+                      {/* Botão que abre o menu */}
+                      <button
+                        type="button"
+                        onClick={() => setIsOpen(!isOpen)}
+                        className="w-full flex items-center justify-between rounded-xl border border-zinc-200 bg-zinc-50/50 py-3.5 pl-10 pr-4 text-sm text-black outline-none transition-all focus:border-orange-500 focus:bg-white focus:ring-4 focus:ring-orange-500/10 shadow-sm"
+                      >
+                        <span className={selectedCategory ? "text-zinc-900" : "text-zinc-400"}>
+                          {selectedCategory || "Selecione a especialidade"}
+                        </span>
+                        <CaretDownIcon size={16} className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+                      </button>
+
+                      {/* Lista de Opções Customizada */}
+                      
+                    </div>
+                    {/* Input oculto para o formulário capturar o valor no handleSubmit */}
+                    <input type="hidden" name="category" value={selectedCategory} />
+                  </div>
+                </>
+              )}
+
+              {/* Campos comuns de Email e Senha */}
               <div>
                 <label htmlFor="email" className="sr-only">E-mail</label>
                 <div className="relative">
                   <EnvelopeIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={20} />
                   <input
-                    id="email"
                     name="email"
                     type="email"
-                    required
-                    placeholder="E-mail profissional"
+                    placeholder="E-mail"
                     className="w-full rounded-xl border border-zinc-200 py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-black"
                   />
                 </div>
               </div>
-
               <div>
                 <label htmlFor="password" className="sr-only">Senha</label>
                 <div className="relative">
                   <LockIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={20} />
                   <input
-                    id="password"
                     name="password"
                     type="password"
-                    required
-                    minLength={6}
                     placeholder="Senha"
-                    className="w-full rounded-xl border border-zinc-200 py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-black"
+                    className="w-full rounded-xl border border-zinc-200 py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-black" 
                   />
                 </div>
               </div>
             </div>
 
-            <button
-              disabled={loading}
-              className="group relative flex w-full items-center justify-center gap-2 rounded-xl bg-orange-600 py-4 font-bold text-white cursor-pointer transition-all hover:opacity-80 active:scale-95 hover:bg-orange-700 active:scale-[0.99] disabled:opacity-70 shadow-lg shadow-orange-100"
-            >
-              {loading ? (
-                <SpinnerIcon className="animate-spin" size={20} />
-              ) : (
-                <>
-                  {isLogin ? 'Entrar na conta' : 'Finalizar cadastro'}
-                  <ArrowRightIcon size={20} className="group-hover:translate-x-1 transition-transform" />
-                </>
-              )}
+            {/* Botão de envio com ajuste de loading e chaves corrigidas */}
+            <button disabled={loading} className="group relative flex w-full items-center justify-center gap-2 rounded-xl bg-orange-600 py-4 font-bold text-white cursor-pointer transition-all hover:opacity-80 active:scale-95 hover:bg-orange-700 active:scale-[0.99] disabled:opacity-70 shadow-lg shadow-orange-100">
+              {loading ? <SpinnerIcon className="animate-spin" size={20} /> : (isLogin ? 'Entrar' : 'Finalizar cadastro')}
             </button>
           </form>
-
           <footer className="mt-8 text-center">
             <button
               onClick={() => setIsLogin(!isLogin)}

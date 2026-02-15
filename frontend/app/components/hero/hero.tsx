@@ -30,16 +30,18 @@ export function Hero(): React.JSX.Element {
           </div>
         </div>
 
-        <div className="hidden lg:block lg:w-1/2 relative">
-          <div className="absolute -z-10 top-0 right-0 w-125 h-125 bg-orange-200/50 rounded-full blur-3xl animate-pulse"></div>
-          <div className="relative w-full h-150">
-            <Image
-              src="/images/paste.png"
-              alt="App Interface"
-              fill
-              className="object-contain drop-shadow-2xl"
-              priority
-            />
+        <div className="hidden lg:block lg:w-1/2 relative min-h-150">
+          {/* Container da Imagem */}
+          <div className="relative w-full h-full flex items-center justify-end pr-10">
+            <div className="relative w-137.5 aspect-square">
+              <Image
+                src="/images/paste.png"
+                alt="Prato Principal"
+                fill
+                className="object-contain drop-shadow-[0_35px_35px_rgba(0,0,0,0.4)]"
+                priority
+              />
+            </div>
           </div>
         </div>
       </div>
